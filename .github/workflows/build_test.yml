@@ -53,10 +53,18 @@ jobs:
 
   basic:
     needs: [smoke_test]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: [3.9, 3.10.0-rc.2]
+        include:
+          - python-version: 3.9
+            os: ubuntu-latest
+          - python-version: 3.10-rc.2
+            os: ubuntu-latest
+          - python-version: 3.10-rc.2
+            os: windows-2019
+          - python-version: 3.10-rc.2
+            os: macos-latest
     steps:
     - uses: actions/checkout@v2
       with:
